@@ -47,7 +47,7 @@ export default function LoginPage() {
     if (!session?.user) return;
 
     const roleRoutes: Record<string, string> = {
-      SUPERADMIN: "pages/superadmin/dashboard",
+      SUPERADMIN: "frontend/superadmin/dashboard",
       SCHOOLADMIN: "/schoolAdmin",
       TEACHER: "/teachersPortal",
       STUDENT: "/student",
@@ -96,7 +96,7 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="text-primary text-xs"
+                className="text-white text-xs"
               >
                 {showPassword ? "Hide" : "Show"}
               </button>
@@ -124,16 +124,16 @@ export default function LoginPage() {
             {/* Centered white tick */}
             <svg
               className="
-      absolute
-      left-0
-      top-0
-      w-4 h-4
-      p-[2px]
-      text-white
-      hidden
-      peer-checked:block
-      pointer-events-none
-    "
+                  absolute
+                  left-0
+                  top-0
+                  w-4 h-4
+                  p-[2px]
+                  text-white
+                  hidden
+                  peer-checked:block
+                  pointer-events-none
+                "
               fill="none"
               stroke="currentColor"
               strokeWidth="3"

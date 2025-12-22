@@ -1,10 +1,11 @@
 "use client";
 
+import { IMenuItem } from "@/interfaces/dashboard";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 
-export default function Sidebar({menuItems}: {menuItems: {label: string; href: string}[]}) {
+export default function Sidebar({menuItems}:{menuItems:IMenuItem[]}) {
   const pathname = usePathname();
 
   return (
