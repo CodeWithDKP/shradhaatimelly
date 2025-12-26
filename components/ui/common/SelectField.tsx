@@ -2,7 +2,7 @@ interface SelectFieldProps {
   label: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  options: string[];
+  options: any[];
   placeholder?: string;
 }
 
@@ -39,8 +39,8 @@ export default function SelectField({
           <option value="">{placeholder}</option>
 
           {options.map((opt) => (
-            <option key={opt} value={opt}>
-              {opt}
+            <option key={opt.id} value={opt.id}>
+              {opt.name}
             </option>
           ))}
         </select>
