@@ -26,3 +26,10 @@ type SchoolFormState = {
 export type { SchoolFormState };
 
 
+export interface Teacher {
+  id: string;
+  name: string;
+  email: string;
+  mobile: string;
+  subject: string;
+}
