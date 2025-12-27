@@ -6,9 +6,11 @@ import { getTeachers } from "@/services/schooladmin/teachers.service";
 import DataTable, { Column } from "@/components/ui/TableData";
 import CommonButton from "@/components/ui/common/CommonButton";
 import { Teacher } from "@/interfaces/dashboard";
-import AddTeacherForm from "@/components/ui/AddTeacherForm";
 import { FiPlus, FiTrash, FiUser } from "react-icons/fi";
 import TeacherMobileCard from "@/components/responsivescreens/schooladmin/TeachersMobileCard";
+
+import DynamicForm from "@/components/ui/models/DynamicForm";
+import { addTeacherFields } from "@/constants/schooladmin/addTeacherForm";
 
 export default function TeachersPage() {
   const [teachers, setTeachers] = useState<Teacher[]>([]);
@@ -29,6 +31,27 @@ export default function TeachersPage() {
       console.error("Failed to load teachers", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleAddTeacher = async (formData: Record<string, any>) => {
+    try {
+      const res = await fetch("/api/teacher/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to add teacher");
+      }
+
+      setOpen(false);
+      fetchTeachers();
+    } catch (error) {
+      console.error("Add teacher error:", error);
     }
   };
 
@@ -83,7 +106,6 @@ export default function TeachersPage() {
 
   return (
     <div className="p-3 sm:p-6 space-y-4 sm:space-y-5">
-      {/* ===== Header ===== */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-base sm:text-xl font-semibold text-gray-900">
@@ -94,7 +116,6 @@ export default function TeachersPage() {
           </p>
         </div>
 
-        {/* Full-width button on mobile */}
         <div className="w-full sm:w-auto">
           <CommonButton
             label="Add Teacher"
@@ -104,23 +125,19 @@ export default function TeachersPage() {
         </div>
       </div>
 
-      {/* ===== Modal ===== */}
       <CommonModal
         open={open}
         onClose={() => setOpen(false)}
         title="Add New Teacher"
       >
-        <AddTeacherForm
-          onSuccess={() => {
-            setOpen(false);
-            fetchTeachers();
-          }}
+        <DynamicForm
+          fields={addTeacherFields}
+          submitLabel="Add Teacher"
+          onSubmit={handleAddTeacher}
         />
       </CommonModal>
 
-      {/* ===== Table Card ===== */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-
         <div className="px-4 py-3 border-b border-gray-200">
           <h2 className="text-sm sm:text-base font-semibold text-gray-900">
             All Teachers
@@ -130,7 +147,6 @@ export default function TeachersPage() {
           </p>
         </div>
 
-        {/* 📱 MOBILE VIEW (Cards) */}
         <div className="sm:hidden p-4 space-y-3">
           {teachers.length === 0 && !loading && (
             <p className="text-center text-sm text-gray-500">
@@ -143,7 +159,6 @@ export default function TeachersPage() {
           ))}
         </div>
 
-        {/* 💻 TABLET + DESKTOP VIEW (Table) */}
         <div className="hidden sm:block relative overflow-x-auto">
           <div className="min-w-[750px] p-3">
             <DataTable
