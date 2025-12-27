@@ -8,6 +8,7 @@ import SchoolAdminSideBar from "@/components/layout/SchoolAdminSideBar";
 import { SCHOOLADMIN_MENU_ITEMS } from "@/constants/schooladmin/sidebar";
 import DashboardTab from "@/components/schooladmin/dashboard/page";
 import { useDashboardData } from "@/hooks/useSchoolAdminDashboard";
+import TeachersPage from "@/components/schooladmin/teachers/page";
 import SchoolAdminClassesPage from "@/components/schooladmin/classes/page";
 import StudentsManagementPage from "@/components/schooladmin/studentsManagement/page";
 import { getClasses } from "@/services/schooladmin/classes.service";
@@ -51,6 +52,8 @@ export default function SchoolAdminLayout() {
           teachers={teachers}
           loadingTeachers={loadingTeachers}
         />;
+      case "teachers":
+        return <TeachersPage />;
       case "payments":
       // return <PaymentsTab />;
       default:

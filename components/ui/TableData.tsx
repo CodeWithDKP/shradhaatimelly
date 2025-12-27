@@ -26,7 +26,6 @@ export default function DataTable<T>({
   return (
     <div className="overflow-hidden border border-gray-200 rounded-xl animate-slide-in-left">
       <table className="w-full text-sm border-collapse">
-        {/* ================= HEADER ================= */}
         <thead
           style={{ backgroundColor: LIGHT_BG_COLOR }}
           className="text-black border-b border-gray-200"

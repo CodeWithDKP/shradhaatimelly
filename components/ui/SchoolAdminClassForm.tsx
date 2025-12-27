@@ -6,7 +6,7 @@ import SelectField from "@/components/ui/common/SelectField";
 import { MAIN_COLOR } from "@/constants/colors";
 import { motion, type Variants } from "framer-motion";
 import { useToastContext } from "@/services/toast/ToastContext";
-import { FiBookOpen, FiLayers } from "react-icons/fi";
+import { FiLayers } from "react-icons/fi";
 
 interface Teacher {
   id: string;
@@ -93,7 +93,6 @@ export default function CreateClassForm({ teachers, loadingTeachers }: Props) {
 
         show("Class created successfully", "success");
 
-        // Reset form
         setClassName("");
         setSection("");
         setTeacherId("");
@@ -107,22 +106,23 @@ export default function CreateClassForm({ teachers, loadingTeachers }: Props) {
     [className, section, teacherId]
   );
 
-
   return (
-    <div className="min-h-[calc(100vh-80px)] flex items-center justify-center px-4">
+    <div className="min-h-[calc(100vh-80px)] flex items-center justify-center px-4 sm:px-6">
       <div className="w-full max-w-2xl">
         <motion.form
           onSubmit={handleSubmit}
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="bg-white rounded-2xl p-6 space-y-6 shadow-md"
+          className="bg-white rounded-2xl p-4 sm:p-6 space-y-6 shadow-md"
         >
           {/* Header */}
           <motion.div variants={itemVariants}>
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center">
-                <span className="text-green-600 text-lg"><FiLayers /></span>
+                <span className="text-green-600 text-lg">
+                  <FiLayers />
+                </span>
               </div>
               <div>
                 <h2 className="text-lg font-semibold">Class Information</h2>
@@ -136,7 +136,7 @@ export default function CreateClassForm({ teachers, loadingTeachers }: Props) {
           <div className="border-t border-gray-200" />
 
           {/* Class Name */}
-          <motion.div variants={itemVariants}>
+          <motion.div variants={itemVariants} className="w-full">
             <InputField
               label="Class Name *"
               placeholder="e.g., Class 10"
@@ -147,12 +147,14 @@ export default function CreateClassForm({ teachers, loadingTeachers }: Props) {
               }}
             />
             {fieldErrors.className && (
-              <p className="text-sm text-red-600">{fieldErrors.className}</p>
+              <p className="text-sm text-red-600 mt-1">
+                {fieldErrors.className}
+              </p>
             )}
           </motion.div>
 
           {/* Section */}
-          <motion.div variants={itemVariants}>
+          <motion.div variants={itemVariants} className="w-full">
             <InputField
               label="Section *"
               placeholder="e.g., A, B, C"
@@ -163,12 +165,14 @@ export default function CreateClassForm({ teachers, loadingTeachers }: Props) {
               }}
             />
             {fieldErrors.section && (
-              <p className="text-sm text-red-600">{fieldErrors.section}</p>
+              <p className="text-sm text-red-600 mt-1">
+                {fieldErrors.section}
+              </p>
             )}
           </motion.div>
 
-          {/* Teacher */}
-          <motion.div variants={itemVariants}>
+          {/* Teacher (Responsive Select) */}
+          <motion.div variants={itemVariants} className="w-full">
             <SelectField
               label="Assign Class Teacher *"
               value={teacherId}
@@ -186,12 +190,14 @@ export default function CreateClassForm({ teachers, loadingTeachers }: Props) {
               }))}
             />
             {fieldErrors.teacherId && (
-              <p className="text-sm text-red-600">{fieldErrors.teacherId}</p>
+              <p className="text-sm text-red-600 mt-1">
+                {fieldErrors.teacherId}
+              </p>
             )}
           </motion.div>
 
           {/* Submit */}
-          <motion.div variants={itemVariants}>
+          <motion.div variants={itemVariants} className="w-full">
             <button
               type="submit"
               disabled={submitting || loadingTeachers}
