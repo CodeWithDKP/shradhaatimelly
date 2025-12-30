@@ -6,13 +6,15 @@ import { useSearchParams } from "next/navigation";
 
 import SchoolAdminSideBar from "@/components/layout/SchoolAdminSideBar";
 import { SCHOOLADMIN_MENU_ITEMS } from "@/constants/schooladmin/sidebar";
-import DashboardTab from "@/components/schooladmin/dashboard/page";
+import DashboardTab from "@/components/schooladmin/dashboard/Dashboard";
 import { useDashboardData } from "@/hooks/useSchoolAdminDashboard";
-import TeachersPage from "@/components/schooladmin/teachers/page";
-import SchoolAdminClassesPage from "@/components/schooladmin/classes/page";
-import StudentsManagementPage from "@/components/schooladmin/studentsManagement/page";
-import TeacherLeavesPage from "@/components/schooladmin/teachersleaves/page";
-import WorkshopsPage from "@/components/schooladmin/workshops/page";
+import TeachersPage from "@/components/schooladmin/teachers/Teachers";
+
+import StudentsManagementPage from "@/components/schooladmin/studentsManagement/StudentManagement";
+import TeacherLeavesPage from "@/components/schooladmin/teachersleaves/TeacherLeaves";
+import FeePaymentsPage from "@/components/schooladmin/schoolpayments/SchoolPayements";
+import SchoolAdminClassesPage from "@/components/schooladmin/classes/Classes";
+import WorkshopsPage from "@/components/schooladmin/workshops/WorkShops";
 import NewsfeedPage from "@/components/schooladmin/newsfeed/Newsfeed";
 
 export default function SchoolAdminLayout() {
@@ -32,6 +34,8 @@ export default function SchoolAdminLayout() {
     teachers,
     tcRequestsAll,
     tcRequestsPending,
+    feeDetails,
+    feeStats,
     reloadDashboard,
     reloadClasses,
     reloadStudents,
@@ -81,7 +85,14 @@ export default function SchoolAdminLayout() {
             isTCApprovalsPage={true}
           />
         );
-
+      case "payments":
+        return (
+          <FeePaymentsPage
+            classes={classes}
+            fees={feeDetails}
+            stats={feeStats}
+          />
+        );
       case "workshops":
         return <WorkshopsPage workshops={events} loading={loading} reload={reloadDashboard} />;
       case "newsfeed":

@@ -22,7 +22,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const { name, email, password, mobile } = await req.json();
+    const { name, email, password, mobile ,subjectsTaught} = await req.json();
 
     if (!name || !email || !password) {
       return NextResponse.json(
@@ -41,6 +41,7 @@ export async function POST(req: Request) {
         role: Role.TEACHER,
         schoolId,
         mobile: mobile || null,
+        subjectsTaught,
       },
       select: {
         id: true,
@@ -48,6 +49,7 @@ export async function POST(req: Request) {
         email: true,
         mobile: true,
         role: true,
+        subjectsTaught: true,
       },
     });
 

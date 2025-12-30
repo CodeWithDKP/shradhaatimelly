@@ -29,8 +29,6 @@ enum LeaveStatus {
 enum LeaveType {
   CASUAL
   SICK
-  PAID
-  UNPAID
 }
 
 model User {
@@ -47,6 +45,7 @@ model User {
 
   // Teacher-specific fields
   mobile          String? // teacher mobile
+  subjectsTaught  String? // comma-separated subjects
   leaveAprrover  Boolean @default(false)
   assignedClasses Class[] @relation("TeacherClass")
   attendances     Attendance[] @relation("TeacherAttendance")
@@ -104,7 +103,7 @@ model LeaveRequest {
 
   leaveType LeaveType
   reason    String   @db.Text
-
+  days     String
   fromDate DateTime
   toDate   DateTime
 
@@ -126,7 +125,11 @@ model School {
   name     String
   address  String
   location String
-
+  icon     String? // URL or file path
+  pincode String
+  district String
+  state    String
+  city    String
   admins   User[]    @relation("SchoolAdmin")
   teachers User[]    @relation("SchoolTeacher")
   students Student[]
@@ -365,6 +368,7 @@ model NewsFeed {
   id          String   @id @default(cuid())
   title       String
   description String   @db.Text
+  tagline   String?
   mediaUrl    String?  // Photo or video URL
   mediaType   String?  // "PHOTO", "VIDEO", null
   
