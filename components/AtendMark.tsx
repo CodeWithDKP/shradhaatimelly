@@ -278,6 +278,7 @@ export default function AttendanceManagementPage() {
                     {isToday && !submitted && (
                       <td className="p-4 flex gap-2">
                         <button
+                        
                           onClick={() =>
                             setAttendance({ ...attendance, [s.id]: "PRESENT" })
                           }
